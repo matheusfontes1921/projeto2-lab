@@ -35,6 +35,10 @@ public class PedidoService {
     }
 
     public PedidoEntity createPedido(ClienteEntity cliente) {
-        return new PedidoEntity(null, cliente);
+        PedidoEntity p1 = new PedidoEntity(null, cliente);
+
+        repository.save(p1);
+
+        return p1;
     }
 }
