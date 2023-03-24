@@ -35,6 +35,6 @@ public class PedidoService {
     }
 
     public PedidoEntity createPedido(ClienteEntity cliente) {
-        return new PedidoEntity(cliente);
+        return new PedidoEntity(null, cliente);
     }
 }

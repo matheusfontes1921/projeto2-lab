@@ -14,7 +14,8 @@ public class PedidoEntity {
     @JoinColumn(name="client_id")
     private ClienteEntity cliente;
 
-    public PedidoEntity(ClienteEntity cliente) {
+    public PedidoEntity(Long id, ClienteEntity cliente) {
+        this.id = id;
         this.cliente = cliente;
     }
 
