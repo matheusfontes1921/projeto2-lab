@@ -9,6 +9,5 @@ import java.util.LinkedList;
 public interface PedidoRepository extends JpaRepository<PedidoEntity, Long> {
     LinkedList<PedidoEntity> getPedidoEntitiesByCliente_IdOrderById(Long cliente_id);
     void deleteById(Long id);
-
-
+    PedidoEntity getPedidoEntityByClienteBeforeCliente_IdAndId(Long cliente_id, Long id);
 }

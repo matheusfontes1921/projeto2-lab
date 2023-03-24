@@ -1,5 +1,6 @@
 package com.app.model.Pedido;
 
+import com.app.model.Cliente.ClienteEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -29,7 +30,11 @@ public class PedidoService {
         }
     }
 
-    public void updatePedido() {}
+    public void updatePedido() {
 
-    public void createPedido() {}
+    }
+
+    public PedidoEntity createPedido(ClienteEntity cliente) {
+        return new PedidoEntity(cliente);
+    }
 }

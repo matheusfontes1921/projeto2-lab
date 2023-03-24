@@ -1,9 +1,11 @@
 package com.app.controller;
 
 import com.app.model.Carro.CarroService;
+import com.app.model.Cliente.ClienteEntity;
 import com.app.model.Cliente.ClienteService;
 import com.app.model.Pedido.PedidoEntity;
 import com.app.model.Pedido.PedidoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +14,12 @@ import java.util.LinkedList;
 
 @RestController
 public class ClienteController {
-    private final ClienteService clienteService;
-    private final PedidoService pedidoService;
-    private final CarroService carroService;
-
-    public ClienteController(ClienteService clienteService, PedidoService pedidoService, CarroService carroService) {
-        this.clienteService = clienteService;
-        this.pedidoService = pedidoService;
-        this.carroService = carroService;
-    }
-
+    @Autowired
+    private ClienteService clienteService;
+    @Autowired
+    private PedidoService pedidoService;
+    @Autowired
+    private CarroService carroService;
     @GetMapping(value = "/api/getPedidos/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getPedidos(@RequestParam Long id) {
         LinkedList<PedidoEntity> pedidos = pedidoService.getPedidoByCLiente(id);
@@ -30,9 +28,11 @@ public class ClienteController {
     }
 
     @PostMapping(value = "/api/createPedido/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createPedido(@RequestParam Long id) {
+    public ResponseEntity<PedidoEntity> createPedido(@RequestParam Long id, @RequestBody String body) {
+        ClienteEntity cliente = clienteService.getClientById(id);
+        PedidoEntity pedido = pedidoService.createPedido(cliente);
 
-        return ResponseEntity.ok().body("Não desenvolvido");
+        return ResponseEntity.ok().body(pedido);
     }
     @PostMapping(value = "/api/createPedido/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deletePedido(@RequestParam Long id) {
@@ -43,8 +43,7 @@ public class ClienteController {
 
 
     @PostMapping(value = "/api/createPedido/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> upadatePedido(@RequestParam Long id) {
-
-        return ResponseEntity.ok().body("Não desenvolvido");
+    public ResponseEntity<?> upadatePedido(@RequestParam Long id, @RequestBody String body) {
+        return ResponseEntity.ok().body("Não Desenvolvido");
     }
 }
