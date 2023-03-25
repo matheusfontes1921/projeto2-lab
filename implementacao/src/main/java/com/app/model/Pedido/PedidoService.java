@@ -1,18 +1,15 @@
 package com.app.model.Pedido;
 
 import com.app.model.Cliente.ClienteEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 
 @Service
 public class PedidoService {
-
+    @Autowired
     PedidoRepository repository;
-
-    public PedidoService(PedidoRepository repository) {
-        this.repository = repository;
-    }
 
     public LinkedList<PedidoEntity> getPedidoByCLiente(Long cliente_id) {
         if(cliente_id != null) {

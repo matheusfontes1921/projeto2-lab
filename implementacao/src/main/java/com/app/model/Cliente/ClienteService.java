@@ -1,14 +1,12 @@
 package com.app.model.Cliente;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ClienteService {
+    @Autowired
     private ClienteRepository repository;
-
-    public ClienteService(ClienteRepository repository) {
-        this.repository = repository;
-    }
 
     public ClienteEntity getClientById(Long id) {
         if(id != null){

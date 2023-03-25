@@ -14,10 +14,6 @@ public class CarroController {
     @Autowired
     private CarroService carroService;
 
-    public CarroController(CarroService carroService) {
-        this.carroService = carroService;
-    }
-
     @GetMapping(value = "/api/getCarroByMatricula/{matricula}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getCarroByMatricula(@RequestParam Long matricula){
 

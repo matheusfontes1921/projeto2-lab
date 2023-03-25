@@ -20,6 +20,8 @@ public class ClienteController {
     private PedidoService pedidoService;
     @Autowired
     private CarroService carroService;
+
+
     @GetMapping(value = "/api/getPedidos/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getPedidos(@RequestParam Long id) {
         LinkedList<PedidoEntity> pedidos = pedidoService.getPedidoByCLiente(id);
