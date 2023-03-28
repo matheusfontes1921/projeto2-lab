@@ -1,17 +1,21 @@
-package com.app.model.Pedido;
+package com.app.model.service;
 
-import com.app.model.Cliente.ClienteEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.app.model.entity.Pedido;
+import com.app.model.entity.Cliente;
+import com.app.model.repository.PedidoRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Service
 public class PedidoService {
-    @Autowired
     PedidoRepository repository;
 
-    public LinkedList<PedidoEntity> getPedidoByCLiente(Long cliente_id) {
+    public LinkedList<Pedido> getPedidoByCLiente(Long cliente_id) {
         if(cliente_id != null) {
             return repository.getPedidoEntitiesByCliente_IdOrderById(cliente_id);
         } else {
@@ -31,8 +35,8 @@ public class PedidoService {
 
     }
 
-    public PedidoEntity createPedido(ClienteEntity cliente) {
-        PedidoEntity p1 = new PedidoEntity(null, cliente);
+    public Pedido createPedido(Cliente cliente) {
+        Pedido p1 = new Pedido(null, cliente);
 
         repository.save(p1);
 

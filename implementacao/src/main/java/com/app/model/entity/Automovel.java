@@ -1,11 +1,13 @@
-package com.app.model.Carro;
+package com.app.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-public class CarroEntity {
+@Table(name = "automovel")
+public class Automovel {
     @Id
     @GeneratedValue
     private Long matricula;
