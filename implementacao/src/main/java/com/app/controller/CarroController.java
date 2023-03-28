@@ -1,7 +1,7 @@
 package com.app.controller;
 
-import com.app.model.Carro.CarroEntity;
-import com.app.model.Carro.CarroService;
+import com.app.model.entity.Automovel;
+import com.app.model.service.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ public class CarroController {
     @GetMapping(value = "/api/getCarroByMatricula/{matricula}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getCarroByMatricula(@RequestParam Long matricula){
 
-        CarroEntity carroEntity = carroService.getCarroByMatricula(matricula);
+        Automovel automovel = carroService.getCarroByMatricula(matricula);
 
-        return ResponseEntity.ok().body(carroEntity);
+        return ResponseEntity.ok().body(automovel);
     }
 }
