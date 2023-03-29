@@ -4,6 +4,8 @@ import com.app.model.entity.Cliente;
 import com.app.model.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClienteService {
     private final ClienteRepository repository;
@@ -36,4 +38,7 @@ public class ClienteService {
         repository.delete(cliente);
     }
 
+    public List<Cliente> getClientes() {
+        return repository.findAll();
+    }
 }

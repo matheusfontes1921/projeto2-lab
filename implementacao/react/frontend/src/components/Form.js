@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useRef } from "react";
+import React, {useEffect, useRef} from "react";
 import styled from "styled-components";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 
 const FormContainer = styled.form`
   display: flex;
@@ -39,87 +39,104 @@ const Button = styled.button`
   height: 42px;
 `;
 
-const Form = ({ getUsers, onEdit, setOnEdit }) => {
-  const ref = useRef();
+const Form = ({getUsers, onEdit, setOnEdit}) => {
+    const ref = useRef();
 
-  useEffect(() => {
-    if (onEdit) {
-      const user = ref.current;
+    useEffect(() => {
+        if (onEdit) {
+            const user = ref.current;
 
-      user.nome.value = onEdit.nome;
-      user.email.value = onEdit.email;
-      user.fone.value = onEdit.fone;
-      user.data_nascimento.value = onEdit.data_nascimento;
-    }
-  }, [onEdit]);
+            user.nome.value = onEdit.nome;
+            user.endereco.value = onEdit.endereco;
+            user.profissao.value = onEdit.profissao;
+            user.rg.value = onEdit.rg;
+            user.cpf.value = onEdit.cpf;
+        }
+    }, [onEdit]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    const user = ref.current;
+        const user = ref.current;
 
-    if (
-      !user.nome.value ||
-      !user.email.value ||
-      !user.fone.value ||
-      !user.data_nascimento.value
-    ) {
-      return toast.warn("Preencha todos os campos!");
-    }
+        if (
+            !user.nome.value ||
+            !user.endereco.value ||
+            !user.profissao.value ||
+            !user.rg.value ||
+            !user.cpf.value
+        ) {
+            return toast.warn("Preencha todos os campos!");
+        }
 
-    if (onEdit) {
-      await axios
-        .put("http://localhost:8800/" + onEdit.id, {
-          nome: user.nome.value,
-          email: user.email.value,
-          fone: user.fone.value,
-          data_nascimento: user.data_nascimento.value,
-        })
-        .then(({ data }) => toast.success(data))
-        .catch(({ data }) => toast.error(data));
-    } else {
-      await axios
-        .post("http://localhost:8800", {
-          nome: user.nome.value,
-          email: user.email.value,
-          fone: user.fone.value,
-          data_nascimento: user.data_nascimento.value,
-        })
-        .then(({ data }) => toast.success(data))
-        .catch(({ data }) => toast.error(data));
-    }
+        if (onEdit !== null) {
+            await axios
+                .put("http://localhost:8080/api/cliente/update", {
+                    id: onEdit.id,
+                    nome: user.nome.value,
+                    rg: user.rg.value,
+                    cpf: user.cpf.value,
+                    email: onEdit.email,
+                    password: onEdit.password,
+                    endereco: user.endereco.value,
+                    profissao: user.profissao.value,
+                    empregadoras: onEdit.empregadoras
 
-    user.nome.value = "";
-    user.email.value = "";
-    user.fone.value = "";
-    user.data_nascimento.value = "";
+                })
+                .then(({data}) => toast.success(data))
+                .catch(({data}) => toast.error(data));
+        } else {
+            console.log("entrei aqui")
+            await axios
+                .post("http://localhost:8080/api/cliente/cadastrar", {
+                    nome: user.nome.value,
+                    rg: user.rg.value,
+                    cpf: user.cpf.value,
+                    email: "a4@b.com",
+                    password: "123",
+                    endereco: user.endereco.value,
+                    profissao: user.profissao.value,
+                    empregadoras: "casa"
+                })
+                .then(({data}) => toast.success(data))
+                .catch(({data}) => toast.error(data));
+        }
 
-    setOnEdit(null);
-    getUsers();
-  };
+        user.nome.value = "";
+        user.email.value = "";
+        user.fone.value = "";
+        user.data_nascimento.value = "";
 
-  return (
-    <FormContainer ref={ref} onSubmit={handleSubmit}>
-      <InputArea>
-        <Label>Nome</Label>
-        <Input name="nome" />
-      </InputArea>
-      <InputArea>
-        <Label>E-mail</Label>
-        <Input name="email" type="email" />
-      </InputArea>
-      <InputArea>
-        <Label>Telefone</Label>
-        <Input name="fone" />
-      </InputArea>
-      <InputArea>
-        <Label>Data de Nascimento</Label>
-        <Input name="data_nascimento" type="date" />
-      </InputArea>
+        setOnEdit(null);
+        getUsers();
+    };
 
-      <Button type="submit">SALVAR</Button>
-    </FormContainer>
-  );
+    return (
+        <FormContainer ref={ref} onSubmit={handleSubmit}>
+            <InputArea>
+                <Label>Nome</Label>
+                <Input name="nome"/>
+            </InputArea>
+            <InputArea>
+                <Label>Endereço</Label>
+                <Input name="endereco"/>
+            </InputArea>
+            <InputArea>
+                <Label>Profissão</Label>
+                <Input name="profissao"/>
+            </InputArea>
+            <InputArea>
+                <Label>RG</Label>
+                <Input name="rg"/>
+            </InputArea>
+            <InputArea>
+                <Label>CPF</Label>
+                <Input name="cpf"/>
+            </InputArea>
+
+            <Button type="submit">SALVAR</Button>
+        </FormContainer>
+    );
 };
 
 export default Form;

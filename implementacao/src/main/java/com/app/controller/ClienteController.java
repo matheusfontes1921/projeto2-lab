@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/cliente")
@@ -26,6 +27,12 @@ public class ClienteController {
         this.carroService = carroService;
     }
 
+    @GetMapping("getCliente")
+    public ResponseEntity<?> getClientes() {
+        List<Cliente> clienteList = clienteService.getClientes();
+
+        return ResponseEntity.ok().body(clienteList);
+    }
     @PostMapping("cadastrar")
     public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) {
         if(clienteService.clienteExiste(cliente))

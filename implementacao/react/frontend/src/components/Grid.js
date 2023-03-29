@@ -48,7 +48,7 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
 
   const handleDelete = async (id) => {
     await axios
-      .delete("http://localhost:8800/" + id)
+      .delete("http://localhost:8080/api/cliente/delete" + id)
       .then(({ data }) => {
         const newArray = users.filter((user) => user.id !== id);
 
@@ -65,19 +65,25 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
       <Thead>
         <Tr>
           <Th>Nome</Th>
-          <Th>Email</Th>
-          <Th onlyWeb>Fone</Th>
-          <Th></Th>
-          <Th></Th>
+          <Th>Endereço</Th>
+          <Th>Profissão</Th>
+          <Th>RG</Th>
+          <Th>CPF</Th>
         </Tr>
       </Thead>
       <Tbody>
         {users.map((item, i) => (
           <Tr key={i}>
             <Td width="30%">{item.nome}</Td>
-            <Td width="30%">{item.email}</Td>
-            <Td width="20%" onlyWeb>
-              {item.fone}
+            <Td width="30%">{item.endereco}</Td>
+            <Td width="20%">
+              {item.profissao}
+            </Td>
+            <Td width="20%">
+              {item.rg}
+            </Td>
+            <Td width="20%">
+              {item.cpf}
             </Td>
             <Td alignCenter width="5%">
               <FaEdit onClick={() => handleEdit(item)} />
