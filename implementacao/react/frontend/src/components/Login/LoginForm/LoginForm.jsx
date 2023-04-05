@@ -2,19 +2,21 @@ import React from "react";
 import { useState } from "react";
 import Card from "../Card/Card";
 import './LoginForm.css'
-import { database } from '../utils/database'
+import { database, login } from '../utils/database';
 
 const LoginForm = () => {
     const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState({})
+
     const errors = {
         username: "Usuário inválido",
         password: "Senha inválida",
         noUsername: "Coloque seu usuário",
         noPassword: "Coloque sua senha",
     };
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if(!username) {
             setErrorMessage({name:"noUsername", message: errors.noUsername});
@@ -24,7 +26,7 @@ const LoginForm = () => {
             setErrorMessage({name:"noPassword", message: errors.noPassword});
             return;
         }
-        const currentUser = database.find((user) => user.username === username);
+        const currentUser = await login(username, password);
 
         if (currentUser) {
             if (currentUser.password != password) {
@@ -38,10 +40,12 @@ const LoginForm = () => {
             setErrorMessage({name: "username", message: errors.username})
         }
     };
+
     const renderErrorMessage = (name) => 
     name === errorMessage.name && (
         <p className="error_msg">{errorMessage.message}</p>
     )
+
     return(
         <Card> 
             <h1 className="title">Entrar</h1>

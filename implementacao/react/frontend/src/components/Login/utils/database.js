@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const database = [
     {
         username: "admin",
@@ -18,3 +20,15 @@ export const database = [
     },
 
 ];
+
+const back = axios.create({
+    baseURL: "http://localhost:8080/",
+    headers: {'Content-Type': 'application/json'}
+})
+
+export const login = (email, password) => {
+    back.post("api/cliente/login", {
+        email,
+        password
+    });
+}

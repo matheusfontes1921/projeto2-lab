@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import LoginForm from './components/Login/LoginForm/LoginForm'
+import { Router, BrowserRouter, Routes, Route } from 'react-router-dom'
 
 const Container = styled.div`
   width: 100%;
@@ -20,7 +21,7 @@ const Container = styled.div`
 
 const Title = styled.h2``;
 
-function App() {
+const ViewUser = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [users, setUsers] = useState([]);
   const [onEdit, setOnEdit] = useState(null);
@@ -38,7 +39,7 @@ function App() {
     getUsers();
   }, [setUsers]);
 
-  return (
+  return(
     <>
       <Container>
         <Title>USUÁRIOS</Title>
@@ -47,7 +48,22 @@ function App() {
       </Container>
       <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT} />
       <GlobalStyle />
-      <LoginForm/>
+    </>
+    
+  )
+}
+
+
+function App() {
+
+  return (
+    <>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginForm/>}></Route>
+        <Route path="/form" element={<ViewUser />}></Route>
+      </Routes>
+    </BrowserRouter>
     </>
   );
   
