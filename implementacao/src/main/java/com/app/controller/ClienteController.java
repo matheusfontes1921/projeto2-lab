@@ -1,8 +1,9 @@
 package com.app.controller;
 
 import com.app.model.dto.LoginDto;
-import com.app.model.service.CarroService;
+
 import com.app.model.entity.Cliente;
+import com.app.model.service.AutomovelService;
 import com.app.model.service.ClienteService;
 import com.app.model.entity.Pedido;
 import com.app.model.service.PedidoService;
@@ -19,12 +20,12 @@ import java.util.List;
 public class ClienteController {
     private final ClienteService clienteService;
     private final PedidoService pedidoService;
-    private final CarroService carroService;
+    private final AutomovelService automovelService;
 
-    public ClienteController(ClienteService clienteService, PedidoService pedidoService, CarroService carroService) {
+    public ClienteController(ClienteService clienteService, PedidoService pedidoService, AutomovelService automovelService) {
         this.clienteService = clienteService;
         this.pedidoService = pedidoService;
-        this.carroService = carroService;
+        this.automovelService = automovelService;
     }
 
     @GetMapping("getCliente")

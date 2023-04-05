@@ -1,7 +1,7 @@
 package com.app.config;
 
 import com.app.model.entity.Automovel;
-import com.app.model.repository.CarroRepository;
+import com.app.model.repository.AutomovelRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -12,9 +12,9 @@ import java.util.Arrays;
 @Configuration
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
-    private CarroRepository carroRepository;
+    private AutomovelRepository carroRepository;
 
-    public TestConfig(CarroRepository carroRepository) {
+    public TestConfig(AutomovelRepository carroRepository) {
         this.carroRepository = carroRepository;
     }
 
