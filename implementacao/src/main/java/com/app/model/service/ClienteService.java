@@ -41,4 +41,9 @@ public class ClienteService {
     public List<Cliente> getClientes() {
         return repository.findAll();
     }
+
+    public Cliente buscarUsuarioPorId(Long usuarioId) {
+        return repository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+    }
 }
